@@ -4,8 +4,9 @@
 
 void main()
 {
-	Snake snake;
+	
 	Field field;
+	Snake snake(&field);
 
 	field.toRender();
 	

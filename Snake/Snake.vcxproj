@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -146,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="Field.hpp" />
     <ClInclude Include="Fruit.hpp" />
+    <ClInclude Include="GlobalStructures.h" />
     <ClInclude Include="KeyHandler.hpp" />
     <ClInclude Include="Snake.hpp" />
   </ItemGroup>

@@ -1,14 +1,10 @@
 #pragma once
 #include <windows.h>
 #include <iostream>
+#include "GlobalStructures.h"
+#include "Field.hpp"
 
-typedef struct coord
-{
-	short x;
-	short y;
-}coord;
-
-enum vect
+enum direction
 {
 	RIGHT,
 	LEFT,
@@ -21,37 +17,41 @@ class Snake
 private:
 	short size_;
 	short motionVector_;
-	coord *coordinates_;
-	HANDLE hConsole_; 
-	COORD cPosition_; 
+	vect fieldCoordinates_;
+	vect fieldSize_;
+	vect* coordinates_;
+	HANDLE hConsole_;
+	COORD cPosition_;
 
 	void toRender();
 public:
-	Snake()
+	Snake(Field* field)
 	{
 		size_ = 4;
 		hConsole_ = GetStdHandle(STD_OUTPUT_HANDLE);
 		motionVector_ = RIGHT;
-		coordinates_ = new coord[size_];
+		coordinates_ = new vect[size_];
+		fieldCoordinates_ = *(field->getCoordinates());
+		fieldSize_ = *(field->getSize());
 
-		for(int i = 0; i < size_; i++)
+		for (int i = size_ - 1; i >= 0; i--)
 		{
-			coordinates_[i].x = (short)(size_ - (i + 1) + 40);
-			coordinates_[i].y = 4;
+			coordinates_[i].x = (short)((size_ - 1) - i + fieldCoordinates_.x + 1);
+			coordinates_[i].y = fieldCoordinates_.y + 1;
 		}
-				
+
 		cPosition_ = { coordinates_->x, coordinates_->y };
 	}
 
 	void stateMachine(int state);
 	void toMotion();
 
-	coord* getCoord()
+	vect* getCoord()
 	{
 		return coordinates_;
 	}
 
-	void setCoord(coord *coordinates)
+	void setCoord(vect* coordinates)
 	{
 		this->coordinates_ = coordinates;
 	}

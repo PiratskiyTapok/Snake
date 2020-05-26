@@ -1,4 +1,5 @@
 #include "Snake.hpp"
+#include "GlobalStructures.h"
 #include <iostream>
 #include <windows.h>
 
@@ -40,9 +41,9 @@ void Snake::toMotion()
 	switch (motionVector_)
 	{
 	case UP: //вверх
-		if(coordinates_->y == 4)
+		if(coordinates_->y == fieldCoordinates_.y + 1)
 		{
-			coordinates_->y = 20;
+			coordinates_->y = fieldCoordinates_.y + fieldSize_.y - 1;
 		}
 		else
 		{
@@ -50,9 +51,9 @@ void Snake::toMotion()
 		}
 		break;
 	case DOWN: //вниз
-		if (coordinates_->y == 20)
+		if (coordinates_->y == fieldCoordinates_.y + fieldSize_.y - 1)
 		{
-			coordinates_->y = 4;
+			coordinates_->y = fieldCoordinates_.y + 1;
 		}
 		else
 		{
@@ -60,9 +61,9 @@ void Snake::toMotion()
 		}
 		break;
 	case LEFT: //влево
-		if (coordinates_->x == 40)
+		if (coordinates_->x == fieldCoordinates_.x + 1)
 		{
-			coordinates_->x = 80;
+			coordinates_->x = fieldCoordinates_.x + fieldSize_.x - 1;
 		}
 		else
 		{
@@ -70,9 +71,9 @@ void Snake::toMotion()
 		}
 		break;
 	case RIGHT: //вправо
-		if (coordinates_->x == 80)
+		if (coordinates_->x == fieldCoordinates_.x + fieldSize_.x - 1)
 		{
-			coordinates_->x = 40;
+			coordinates_->x = fieldCoordinates_.x + 1;
 		}
 		else
 		{
