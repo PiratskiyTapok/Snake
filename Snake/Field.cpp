@@ -52,7 +52,7 @@ void Field::toRender()
 void Field::toCount()
 {
 	score += 10;
-	cPosition_ = { (short)(coordinates_.x + size_.x / 2 - 2), (short)(coordinates_.y + size_.y + 2) };
+	cPosition_ = { (short)(coordinates_.x + size_.x / 2 - 4), (short)(coordinates_.y + size_.y + 2) };
 	SetConsoleCursorPosition(hConsole_, cPosition_);
 	std::cout << "Score: " << score;
 }
