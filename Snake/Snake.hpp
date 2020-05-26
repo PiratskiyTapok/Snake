@@ -23,6 +23,7 @@ private:
 	HANDLE hConsole_;
 	COORD cPosition_;
 
+	bool gameOver();
 	void toGrow();
 	void toRender();
 public:
@@ -43,7 +44,7 @@ public:
 	}
 
 	void stateMachine(int state);
-	bool toMotion(vect* fruitCoordinates);
+	bool toMotion(vect* fruitCoordinates, bool *gameFlag);
 
 	vect* getCoord()
 	{

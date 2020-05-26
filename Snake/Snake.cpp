@@ -51,8 +51,20 @@ void Snake::toGrow()
 	}
 }
 
+bool Snake::gameOver()
+{
+	for(int i = size_ - 1; i > 3; i--)
+	{
+		if((coordinates_->x == coordinates_[i].x) && (coordinates_->y == coordinates_[i].y))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
-bool Snake::toMotion(vect* fruitCoordinates)
+
+bool Snake::toMotion(vect* fruitCoordinates, bool *gameFlag)
 {
 	toRender();
 	for (int i = size_ - 1; i > 0; i--)
@@ -102,10 +114,13 @@ bool Snake::toMotion(vect* fruitCoordinates)
 			coordinates_->x++;
 		}
 		break;
-	case 27:  //esc
-		break;
 	default:
 		break;
+	}
+
+	if(gameOver())
+	{
+		*gameFlag = false;
 	}
 	
 	if((coordinates_->x == fruitCoordinates->x) && (coordinates_->y == fruitCoordinates->y))

@@ -41,4 +41,18 @@ void Field::toRender()
 		SetConsoleCursorPosition(hConsole_, cPosition_);
 		std::cout << (char)205; //нижн€€ стенка
 	}
+
+	cPosition_ = { (short)(coordinates_.x + size_.x / 2 - 4), (short)(coordinates_.y + size_.y + 2) };
+	SetConsoleCursorPosition(hConsole_, cPosition_);
+	std::cout << "Score:  " << score << std::endl;
+	cPosition_ = { (short)(coordinates_.x + size_.x / 2 - 8), (short)(coordinates_.y + size_.y + 3) };
+	SetConsoleCursorPosition(hConsole_, cPosition_);
+	std::cout << "Press esc to exit";
+}
+void Field::toCount()
+{
+	score += 10;
+	cPosition_ = { (short)(coordinates_.x + size_.x / 2 - 2), (short)(coordinates_.y + size_.y + 2) };
+	SetConsoleCursorPosition(hConsole_, cPosition_);
+	std::cout << "Score: " << score;
 }

@@ -3,7 +3,7 @@
 #include "KeyHandler.hpp"
 #include "Snake.hpp"
 
-void KeyHandler::handler(Snake* snake)
+bool KeyHandler::handler(Snake* snake)
 {
 	if (_kbhit()) // слушатель нажатия на клаву
 	{
@@ -21,8 +21,11 @@ void KeyHandler::handler(Snake* snake)
 		case 77: //вправо
 			snake->stateMachine(RIGHT);
 			break;
+		case 27:  //esc
+			return true;
 		default:
 			break;
 		}
 	}
+	return false;
 }
