@@ -6,52 +6,80 @@ void Snake::toRender()
 {
 	cPosition_ = { coordinates_[size_ - 1].x, coordinates_[size_ - 1].y };
 	SetConsoleCursorPosition(hConsole_, cPosition_);
-	std::cout << " " << std::endl;
+	std::cout << " ";
 	
 	cPosition_ = { coordinates_->x, coordinates_->y };
 	SetConsoleCursorPosition(hConsole_, cPosition_);
-	std::cout << "*" << std::endl;
+	std::cout << "*";
 
 	cPosition_ = { 0, 0 };
 	SetConsoleCursorPosition(hConsole_, cPosition_);
 }
 
+void Snake::stateMachine(int state)
+{
+	if((motionVector_ == LEFT && state != RIGHT) || (motionVector_ == RIGHT && state != LEFT))
+	{
+		motionVector_ = (short)state;
+	}
+	if ((motionVector_ == UP && state != DOWN) || (motionVector_ == DOWN && state != UP))
+	{
+		motionVector_ = (short)state;
+	}
+}
+
+
 void Snake::toMotion()
 {
 	toRender();
+	for (int i = size_ - 1; i > 0; i--)
+	{
+		coordinates_[i].x = coordinates_[i - 1].x;
+		coordinates_[i].y = coordinates_[i - 1].y;
+	}
 	switch (motionVector_)
 	{
 	case UP: //вверх
-		for (int i = size_ - 1; i > 0; i--)
+		if(coordinates_->y == 4)
 		{
-			coordinates_[i].x = coordinates_[i - 1].x;
-			coordinates_[i].y = coordinates_[i - 1].y;
+			coordinates_->y = 20;
 		}
-		coordinates_->y--;
+		else
+		{
+			coordinates_->y--;
+		}
 		break;
 	case DOWN: //вниз
-		for (int i = size_ - 1; i > 0; i--)
+		if (coordinates_->y == 20)
 		{
-			coordinates_[i].x = coordinates_[i - 1].x;
-			coordinates_[i].y = coordinates_[i - 1].y;
+			coordinates_->y = 4;
 		}
-		coordinates_->y++;
+		else
+		{
+			coordinates_->y++;
+		}
 		break;
-	case LEFT: //влево 
-		for (int i = size_ - 1; i > 0; i--)
+	case LEFT: //влево
+		if (coordinates_->x == 40)
 		{
-			coordinates_[i].x = coordinates_[i - 1].x;
-			coordinates_[i].y = coordinates_[i - 1].y;
+			coordinates_->x = 80;
 		}
-		coordinates_->x--;
+		else
+		{
+			coordinates_->x--;
+		}
 		break;
 	case RIGHT: //вправо
-		for (int i = size_ - 1; i > 0; i--)
+		if (coordinates_->x == 80)
 		{
-			coordinates_[i].x = coordinates_[i - 1].x;
-			coordinates_[i].y = coordinates_[i - 1].y;
+			coordinates_->x = 40;
 		}
-		coordinates_->x++;
+		else
+		{
+			coordinates_->x++;
+		}
+		break;
+	case 27:  //esc
 		break;
 	default:
 		break;

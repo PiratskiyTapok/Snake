@@ -34,20 +34,16 @@ public:
 		motionVector_ = RIGHT;
 		coordinates_ = new coord[size_];
 
-		for (int i = 1; i < size_; i++)
-		{
-			std::cout << "*";
-		}
-
 		for(int i = 0; i < size_; i++)
 		{
-			coordinates_[i].x = (short)(size_ - (i + 1));
-			coordinates_[i].y = 0;
+			coordinates_[i].x = (short)(size_ - (i + 1) + 40);
+			coordinates_[i].y = 4;
 		}
 				
 		cPosition_ = { coordinates_->x, coordinates_->y };
 	}
 
+	void stateMachine(int state);
 	void toMotion();
 
 	coord* getCoord()

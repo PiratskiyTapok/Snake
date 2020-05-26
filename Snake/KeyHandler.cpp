@@ -10,16 +10,16 @@ void KeyHandler::handler(Snake* snake)
 		switch (_getch()) // ждёт нажатия на клаву без Enter после этого
 		{
 		case 72: //вверх
-			snake->setMotionVector(UP);
+			snake->stateMachine(UP);
 			break;
 		case 80: //вниз
-			snake->setMotionVector(DOWN);
+			snake->stateMachine(DOWN);
 			break;
 		case 75: //влево 
-			snake->setMotionVector(LEFT);
+			snake->stateMachine(LEFT);
 			break;
 		case 77: //вправо
-			snake->setMotionVector(RIGHT);
+			snake->stateMachine(RIGHT);
 			break;
 		default:
 			break;
