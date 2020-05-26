@@ -4,5 +4,5 @@
 class KeyHandler
 {
 public:
-	static bool handler(Snake *snake);
+	static void handler(Snake *snake);
 };

@@ -3,39 +3,26 @@
 #include "KeyHandler.hpp"
 #include "Snake.hpp"
 
-bool KeyHandler::handler(Snake* snake)
+void KeyHandler::handler(Snake* snake)
 {
 	if (_kbhit()) // слушатель нажатия на клаву
 	{
 		switch (_getch()) // ждёт нажатия на клаву без Enter после этого
 		{
 		case 72: //вверх
-			for (int i = 0; i < snake->getSize(); i++)
-			{
-				snake->getCoord()[i].y--;
-			}
-			return true;
+			snake->setMotionVector(UP);
+			break;
 		case 80: //вниз
-			for (int i = 0; i < snake->getSize(); i++)
-			{
-				snake->getCoord()[i].y++;
-			}
-			return true;
+			snake->setMotionVector(DOWN);
+			break;
 		case 75: //влево 
-			for (int i = 0; i < snake->getSize(); i++)
-			{
-				snake->getCoord()[i].x--;
-			}
-			return true;
+			snake->setMotionVector(LEFT);
+			break;
 		case 77: //вправо
-			for (int i = 0; i < snake->getSize(); i++)
-			{
-				snake->getCoord()[i].x++;
-			}
-			return true;
+			snake->setMotionVector(RIGHT);
+			break;
 		default:
-			return true;
+			break;
 		}
 	}
-	return false;
 }

@@ -1,36 +1,72 @@
 #pragma once
+#include <windows.h>
+#include <iostream>
+
 typedef struct coord
 {
-	int x;
-	int y;
+	short x;
+	short y;
 }coord;
+
+enum vect
+{
+	RIGHT,
+	LEFT,
+	UP,
+	DOWN
+};
 
 class Snake
 {
 private:
-	int size;
-	coord *coordinates;
+	short size_;
+	short motionVector_;
+	coord *coordinates_;
+	HANDLE hConsole_; 
+	COORD cPosition_; 
+
+	void toRender();
 public:
-	Snake(int size)
+	Snake()
 	{
-		coordinates = new coord();
-		coordinates->x = 0;
-		coordinates->y = 0;
-		this->size = size;
+		size_ = 4;
+		hConsole_ = GetStdHandle(STD_OUTPUT_HANDLE);
+		motionVector_ = RIGHT;
+		coordinates_ = new coord[size_];
+
+		for (int i = 1; i < size_; i++)
+		{
+			std::cout << "*";
+		}
+
+		for(int i = 0; i < size_; i++)
+		{
+			coordinates_[i].x = (short)(size_ - (i + 1));
+			coordinates_[i].y = 0;
+		}
+				
+		cPosition_ = { coordinates_->x, coordinates_->y };
 	}
+
+	void toMotion();
 
 	coord* getCoord()
 	{
-		return coordinates;
+		return coordinates_;
 	}
 
 	void setCoord(coord *coordinates)
 	{
-		this->coordinates = coordinates;
+		this->coordinates_ = coordinates;
+	}
+
+	void setMotionVector(short motionVector)
+	{
+		motionVector_ = motionVector;
 	}
 
 	int getSize()
 	{
-		return size;
+		return size_;
 	}
 };
