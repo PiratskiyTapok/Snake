@@ -23,6 +23,7 @@ private:
 	HANDLE hConsole_;
 	COORD cPosition_;
 
+	void toGrow();
 	void toRender();
 public:
 	Snake(Field* field)
@@ -39,12 +40,10 @@ public:
 			coordinates_[i].x = (short)((size_ - 1) - i + fieldCoordinates_.x + 1);
 			coordinates_[i].y = fieldCoordinates_.y + 1;
 		}
-
-		cPosition_ = { coordinates_->x, coordinates_->y };
 	}
 
 	void stateMachine(int state);
-	void toMotion();
+	bool toMotion(vect* fruitCoordinates);
 
 	vect* getCoord()
 	{

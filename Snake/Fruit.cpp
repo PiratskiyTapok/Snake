@@ -1,12 +1,28 @@
 #include <windows.h>
-#include <time.h>   
+#include <time.h>
 #include "Fruit.hpp"
-#include "Field.hpp"
+#include "Snake.hpp"
+#include <iostream>
 
-void Fruit::spawn()
+void Fruit::spawn(Snake* snake)
 {
 	srand(time(NULL));
-	// проверка на спавн на змейке
-	// проверка на спавн в поле
-	coordinates_.x = rand() % 10 + 1;
+	vect* snakeCoordinates = snake->getCoord();
+
+	while(true)
+	{
+		coordinates_.x = rand() % (fieldSize_.x - 2) + fieldCoordinates_.x + 1;
+		coordinates_.y = rand() % (fieldSize_.y - 2) + fieldCoordinates_.y + 1;
+		
+		for (int i = 0; i < snake->getSize(); i++)
+		{
+			if((snakeCoordinates[i].x != coordinates_.x) && (snakeCoordinates[i].y != coordinates_.y))
+			{
+				cPosition_ = { coordinates_.x, coordinates_.y };
+				SetConsoleCursorPosition(hConsole_, cPosition_);
+				std::cout << '&';
+				return;
+			}
+		}
+	}
 }

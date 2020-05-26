@@ -8,7 +8,7 @@ void Snake::toRender()
 	cPosition_ = { coordinates_[size_ - 1].x, coordinates_[size_ - 1].y };
 	SetConsoleCursorPosition(hConsole_, cPosition_);
 	std::cout << " ";
-	
+
 	cPosition_ = { coordinates_->x, coordinates_->y };
 	SetConsoleCursorPosition(hConsole_, cPosition_);
 	std::cout << "*";
@@ -19,7 +19,7 @@ void Snake::toRender()
 
 void Snake::stateMachine(int state)
 {
-	if((motionVector_ == LEFT && state != RIGHT) || (motionVector_ == RIGHT && state != LEFT))
+	if ((motionVector_ == LEFT && state != RIGHT) || (motionVector_ == RIGHT && state != LEFT))
 	{
 		motionVector_ = (short)state;
 	}
@@ -29,8 +29,30 @@ void Snake::stateMachine(int state)
 	}
 }
 
+void Snake::toGrow()
+{
+	coordinates_ = (vect*)realloc(coordinates_, ++size_ * sizeof(vect));
+	switch (motionVector_)
+	{
+	case LEFT:
+		coordinates_[size_ - 1].x = coordinates_[size_ - 2].x + 1;
+		break;
+	case RIGHT:
+		coordinates_[size_ - 1].x = coordinates_[size_ - 2].x - 1;
+		break;
+	case UP:
+		coordinates_[size_ - 1].y = coordinates_[size_ - 2].y - 1;
+		break;
+	case DOWN:
+		coordinates_[size_ - 1].y = coordinates_[size_ - 2].y + 1;
+		break;
+	default:
+		break;
+	}
+}
 
-void Snake::toMotion()
+
+bool Snake::toMotion(vect* fruitCoordinates)
 {
 	toRender();
 	for (int i = size_ - 1; i > 0; i--)
@@ -41,7 +63,7 @@ void Snake::toMotion()
 	switch (motionVector_)
 	{
 	case UP: //вверх
-		if(coordinates_->y == fieldCoordinates_.y + 1)
+		if (coordinates_->y == fieldCoordinates_.y + 1)
 		{
 			coordinates_->y = fieldCoordinates_.y + fieldSize_.y - 1;
 		}
@@ -84,5 +106,15 @@ void Snake::toMotion()
 		break;
 	default:
 		break;
+	}
+	
+	if((coordinates_->x == fruitCoordinates->x) && (coordinates_->y == fruitCoordinates->y))
+	{
+		toGrow();
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
