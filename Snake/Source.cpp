@@ -4,7 +4,7 @@
 #include "Fruit.hpp"
 #include <conio.h>
 
-void main()
+int main()
 {
 	bool gameFlag = true;
 	Field field;
@@ -18,7 +18,7 @@ void main()
 	{
 		if(KeyHandler::handler(&snake))
 		{
-			break;
+			return 0;
 		}
 		if(snake.toMotion(fruit.getCoordinates(), &gameFlag))
 		{
@@ -30,4 +30,5 @@ void main()
 	system("cls");
 	std::cout << "You lose... Press any key";
 	_getch();
+	return 0;
 }
